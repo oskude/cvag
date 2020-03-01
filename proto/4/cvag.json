@@ -1,0 +1,37 @@
+{
+	"_name": "jackplot.c",
+	"_vari_defs":{
+		"buffer_size" : {},
+		"jack_port"   : {},
+		"jack_buffer" : {}
+	},
+	"_func_defs":{
+		"setup_jack":{
+			"_creates" : ["jack_port"],
+			"_writes"  : ["jack_buffer", "buffer_size"],
+			"_reads"   : ["jack_port"]
+		},
+		"plot_points":{
+			"_reads"   : ["buffer_size", "jack_buffer"]
+		},
+		"main": {
+			"_vari_defs":{
+				"client" : {},
+				"window" : {}
+			},
+			"_func_cals":{
+				"setup_jack":{
+					"_creates" : ["client"]
+				},
+				"setup_window":{
+					"_creates" : ["window"],
+					"_reads"   : ["client"]
+				},
+				"setup_opengl":{
+					"_reads"   : ["window","client"]
+				},
+				"plot_points":{}
+			}
+		}
+	}
+}

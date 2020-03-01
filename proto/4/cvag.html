@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>cvag prototype 4</title>
+<script src="cvag.js"></script>
+<style>
+html
+{
+	--color-back : #333;
+	--color-text : #ccc;
+	--color-line : #888;
+	--color-bord : #ccc;
+}
+@media print, (prefers-color-scheme: light) {
+	html
+	{
+		--color-back : #fff;
+		--color-text : #000;
+		--color-line : #555;
+		--color-bord : #000;
+	}
+}
+html,
+body
+{
+	color      : var(--color-text);
+	background : var(--color-back);
+}
+body {
+	padding     : 1em;
+	padding-top : 0;
+}
+</style>
+</head>
+<body>
+	<h1>cvag prototype 4</h1>
+	<p>drag-n-drop <code>cvag.json</code> file here.</p>
+	<oskude-cvag></oskude-cvag>
+	<p style="height:200vh"></p>
+	<p>just to test graph still works when scrolled</p>
+</body>
+<script>
+/* drag-n-drop files to load */
+const cvag = document.querySelector("oskude-cvag");
+const html = document.querySelector("html");
+html.addEventListener("dragover", (event)=>{
+	event.preventDefault();
+});
+html.addEventListener("drop", async (event)=>{
+	event.preventDefault();
+	const dt = event.dataTransfer;
+	const files = dt.files;
+	const file = files[0];
+	const jstr = await file.text();
+	const jdata = JSON.parse(jstr);
+	cvag.data = jdata;
+});
+</script>
+</html>
